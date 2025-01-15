@@ -77,9 +77,8 @@ namespace TM17000_TIS {
                     panel[Config.panel_tascenabled] = panel[Config.autopilotpanel_tascenabled] > 0 ? 1 : 0;
                     panel[Config.panel_tascmonitor] = panel[Config.autopilotpanel_tascmonitor] > 0 ? 1 : 0;
                 }
-                panel[Config.panel_braketobseb] = panel[Config.autopilotpanel_brake];
-                panel[Config.panel_powertobseb] = panel[Config.autopilotpanel_power];
-                panel[Config.panel_powertokyu] = panel[Config.panel_braketokyu] = 0;
+                panel[Config.panel_braketobseb] = panel[Config.panel_braketokyu] = 0;
+                panel[Config.panel_powertobseb] = panel[Config.panel_powertokyu] = 0;
             } else if (KeyPos == 2) {
                 panel[Config.panel_atoenabled] = panel[Config.autopilotpanel_atoenabled] > 0 ? 2 : 0;
                 if (!Config.panel_tascdisplayunderato && panel[Config.autopilotpanel_atoenabled] > 0) {
