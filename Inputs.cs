@@ -21,5 +21,16 @@ namespace TM17000_TIS {
         public static void DoorClose() {
 
         }
+
+        static int[] pow10 = new int[] { 1, 10, 100, 1000, 10000, 100000 };
+        static int D(int src, int digit) {
+            if (pow10[digit] > src) {
+                return 10;
+            } else if (digit == 0 && src == 0) {
+                return 0;
+            } else {
+                return src / pow10[digit] % 10;
+            }
+        }
     }
 }

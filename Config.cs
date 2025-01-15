@@ -57,6 +57,7 @@ namespace TM17000_TIS {
         public static int panel_shubetsutokyu = 1024;
         public static int panel_powertokyu = 1024;
         public static int panel_braketokyu = 1024;
+        public static bool panel_tascdisplayunderato = false;
 
         public static void Load() {
             path = new FileInfo(Path.Combine(PluginDir, "TISConfig.ini")).FullName;
@@ -98,6 +99,7 @@ namespace TM17000_TIS {
                     ReadConfig("panel", "shubetsutokyu", ref panel_shubetsutokyu);
                     ReadConfig("panel", "powertokyu", ref panel_powertokyu);
                     ReadConfig("panel", "braketokyu", ref panel_braketokyu);
+                    ReadConfig("panel", "tascdisplayunderato", ref panel_tascdisplayunderato);
 
                 } catch (Exception ex) {
                     throw ex;
