@@ -31,7 +31,7 @@ namespace TM17000_TIS {
             var Shubetsu = panel[152];
 
             panel[152] = KeyPos == 3 ? 0 : panel[152];
-            panel[Config.panel_shubetsutokyu] = KeyPos == 3 ? panel[152] : 0;
+            panel[Config.panel_shubetsutokyu] = KeyPos == 3 ? Shubetsu : 0;
 
             var nowYear = DateTime.Now.Year;
             panel[Config.date_year_1000] = D(nowYear, 3);

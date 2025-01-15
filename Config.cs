@@ -22,41 +22,41 @@ namespace TM17000_TIS {
 
         //≈‰÷√œÓ
         //[odometer]
-        public static int odometer_Km100 = 1024;
-        public static int odometer_Km10 = 1024;
-        public static int odometer_Km1 = 1024;
-        public static int odometer_Km01 = 1024;
-        public static int odometer_Km001 = 1024;
+        public static int odometer_Km100 = 255;
+        public static int odometer_Km10 = 255;
+        public static int odometer_Km1 = 255;
+        public static int odometer_Km01 = 255;
+        public static int odometer_Km001 = 255;
 
         //[heal]
-        public static int heal_heal = 1024;
+        public static int heal_heal = 255;
 
         //[date]
-        public static int date_year_1000 = 1024;
-        public static int date_year_100 = 1024;
-        public static int date_year_10 = 1024;
-        public static int date_year_1 = 1024;
-        public static int date_month = 1024;
-        public static int date_day = 1024;
-        public static int date_week = 1024;
+        public static int date_year_1000 = 255;
+        public static int date_year_100 = 255;
+        public static int date_year_10 = 255;
+        public static int date_year_1 = 255;
+        public static int date_month = 255;
+        public static int date_day = 255;
+        public static int date_week = 255;
 
         //[autopilotpanel]
-        public static int autopilotpanel_atoenabled = 1024;
-        public static int autopilotpanel_tascenabled = 1024;
-        public static int autopilotpanel_tascmonitor = 1024;
-        public static int autopilotpanel_atopower = 1024;
-        public static int autopilotpanel_brake = 1024;
-        public static int autopilotpanel_power = 1024;
+        public static int autopilotpanel_atoenabled = 255;
+        public static int autopilotpanel_tascenabled = 255;
+        public static int autopilotpanel_tascmonitor = 255;
+        public static int autopilotpanel_atopower = 255;
+        public static int autopilotpanel_brake = 255;
+        public static int autopilotpanel_power = 255;
 
         //[panel]
-        public static int panel_atoenabled = 1024;
-        public static int panel_tascenabled = 1024;
-        public static int panel_tascmonitor = 1024;
-        public static int panel_powertobseb = 1024;
-        public static int panel_braketobseb = 1024;
-        public static int panel_shubetsutokyu = 1024;
-        public static int panel_powertokyu = 1024;
-        public static int panel_braketokyu = 1024;
+        public static int panel_atoenabled = 255;
+        public static int panel_tascenabled = 255;
+        public static int panel_tascmonitor = 255;
+        public static int panel_powertobseb = 255;
+        public static int panel_braketobseb = 255;
+        public static int panel_shubetsutokyu = 255;
+        public static int panel_powertokyu = 255;
+        public static int panel_braketokyu = 255;
         public static bool panel_tascdisplayunderato = false;
 
         public static void Load() {
