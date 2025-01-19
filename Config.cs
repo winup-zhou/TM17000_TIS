@@ -47,6 +47,7 @@ namespace TM17000_TIS {
         public static int autopilotpanel_atopower = 255;
         public static int autopilotpanel_brake = 255;
         public static int autopilotpanel_power = 255;
+        public static int autopilotpanel_tascbrake = 255;
 
         //[panel]
         public static int panel_atoenabled = 255;
@@ -57,6 +58,9 @@ namespace TM17000_TIS {
         public static int panel_shubetsutokyu = 255;
         public static int panel_powertokyu = 255;
         public static int panel_braketokyu = 255;
+        public static int panel_atopowertobseb = 255;
+        public static int panel_atopowertokyu = 255;
+        public static int panel_tokyutascbrake = 255;
         public static bool panel_tascdisplayunderato = false;
 
         public static void Load() {
@@ -89,6 +93,7 @@ namespace TM17000_TIS {
                     ReadConfig("autopilotpanel", "atopower", ref autopilotpanel_atopower);
                     ReadConfig("autopilotpanel", "brake", ref autopilotpanel_brake);
                     ReadConfig("autopilotpanel", "power", ref autopilotpanel_power);
+                    ReadConfig("autopilotpanel", "tascbrake", ref autopilotpanel_tascbrake);
 
                     //[panel]
                     ReadConfig("panel", "atoenabled", ref panel_atoenabled);
@@ -99,6 +104,9 @@ namespace TM17000_TIS {
                     ReadConfig("panel", "shubetsutokyu", ref panel_shubetsutokyu);
                     ReadConfig("panel", "powertokyu", ref panel_powertokyu);
                     ReadConfig("panel", "braketokyu", ref panel_braketokyu);
+                    ReadConfig("panel", "atopowertokyu", ref panel_atopowertokyu);
+                    ReadConfig("panel", "atopowertobseb", ref panel_atopowertobseb);
+                    ReadConfig("panel", "tokyutascbrake", ref panel_tokyutascbrake);
                     ReadConfig("panel", "tascdisplayunderato", ref panel_tascdisplayunderato);
 
                 } catch (Exception ex) {

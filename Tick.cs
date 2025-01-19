@@ -29,6 +29,7 @@ namespace TM17000_TIS {
 
             var KeyPos = panel[92];
             var Shubetsu = panel[152];
+            var nowHeal = panel[Config.heal_heal];
 
             panel[152] = KeyPos == 3 ? 0 : panel[152];
             panel[Config.panel_shubetsutokyu] = KeyPos == 3 ? Shubetsu : 0;
@@ -56,11 +57,13 @@ namespace TM17000_TIS {
             panel[Config.odometer_Km01] = D(nowLocation, 2);
             panel[Config.odometer_Km001] = D(nowLocation, 1);
 
-            if (state.Time - HealLastUpdateTime > 200) {
-                panel[Config.heal_heal]++;
-                panel[Config.heal_heal] %= 10;
-                HealLastUpdateTime = state.Time;
-            }
+            //if (state.Time - HealLastUpdateTime > 200) {
+            //    panel[Config.heal_heal] = (nowHeal + 1) % 10;
+            //    //panel[Config.heal_heal] %= 10;
+            //    HealLastUpdateTime = state.Time;
+            //}
+
+            panel[Config.heal_heal] = (state.Time / 200) % 8;
 
             /*
              1 営団
@@ -71,7 +74,7 @@ namespace TM17000_TIS {
 
             if (KeyPos == 1) {
                 panel[Config.panel_atoenabled] = panel[Config.autopilotpanel_atoenabled] > 0 ? 1 : 0;
-                if (!Config.panel_tascdisplayunderato && panel[Config.autopilotpanel_atoenabled] > 0) {
+                if ((!Config.panel_tascdisplayunderato) && panel[Config.autopilotpanel_atoenabled] > 0) {
                     panel[Config.panel_tascenabled] = panel[Config.panel_tascmonitor] = 0;
                 } else {
                     panel[Config.panel_tascenabled] = panel[Config.autopilotpanel_tascenabled] > 0 ? 1 : 0;
@@ -79,9 +82,10 @@ namespace TM17000_TIS {
                 }
                 panel[Config.panel_braketobseb] = panel[Config.panel_braketokyu] = 0;
                 panel[Config.panel_powertobseb] = panel[Config.panel_powertokyu] = 0;
+                panel[Config.panel_tokyutascbrake] = panel[Config.panel_atopowertobseb] = panel[Config.panel_atopowertokyu] = 0;
             } else if (KeyPos == 2) {
                 panel[Config.panel_atoenabled] = panel[Config.autopilotpanel_atoenabled] > 0 ? 2 : 0;
-                if (!Config.panel_tascdisplayunderato && panel[Config.autopilotpanel_atoenabled] > 0) {
+                if ((!Config.panel_tascdisplayunderato) && panel[Config.autopilotpanel_atoenabled] > 0) {
                     panel[Config.panel_tascenabled] = panel[Config.panel_tascmonitor] = 0;
                 } else {
                     panel[Config.panel_tascenabled] = panel[Config.autopilotpanel_tascenabled] > 0 ? 2 : 0;
@@ -89,10 +93,11 @@ namespace TM17000_TIS {
                 }
                 panel[Config.panel_braketobseb] = panel[Config.autopilotpanel_brake];
                 panel[Config.panel_powertobseb] = panel[Config.autopilotpanel_power];
-                panel[Config.panel_powertokyu] = panel[Config.panel_braketokyu] = 0;
+                panel[Config.panel_atopowertobseb] = panel[Config.autopilotpanel_atopower];
+                panel[Config.panel_tokyutascbrake] = panel[Config.panel_powertokyu] = panel[Config.panel_braketokyu] = panel[Config.panel_atopowertokyu] = 0;
             } else if (KeyPos == 3) {
                 panel[Config.panel_atoenabled] = panel[Config.autopilotpanel_atoenabled] > 0 ? 3 : 0;
-                if (!Config.panel_tascdisplayunderato && panel[Config.autopilotpanel_atoenabled] > 0) {
+                if ((!Config.panel_tascdisplayunderato) && panel[Config.autopilotpanel_atoenabled] > 0) {
                     panel[Config.panel_tascenabled] = panel[Config.panel_tascmonitor] = 0;
                 } else {
                     panel[Config.panel_tascenabled] = panel[Config.autopilotpanel_tascenabled] > 0 ? 3 : 0;
@@ -100,10 +105,12 @@ namespace TM17000_TIS {
                 }
                 panel[Config.panel_braketokyu] = panel[Config.autopilotpanel_brake];
                 panel[Config.panel_powertokyu] = panel[Config.autopilotpanel_power];
-                panel[Config.panel_powertobseb] = panel[Config.panel_braketobseb] = 0;
+                panel[Config.panel_atopowertokyu] = panel[Config.autopilotpanel_atopower];
+                panel[Config.panel_tokyutascbrake] = panel[Config.autopilotpanel_tascmonitor] > 0 ? panel[Config.autopilotpanel_tascbrake] : 0;
+                panel[Config.panel_powertobseb] = panel[Config.panel_braketobseb] = panel[Config.panel_atopowertobseb] = 0;
             } else if (KeyPos == 4) {
                 panel[Config.panel_atoenabled] = panel[Config.autopilotpanel_atoenabled] > 0 ? 4 : 0;
-                if (!Config.panel_tascdisplayunderato && panel[Config.autopilotpanel_atoenabled] > 0) {
+                if ((!Config.panel_tascdisplayunderato) && panel[Config.autopilotpanel_atoenabled] > 0) {
                     panel[Config.panel_tascenabled] = panel[Config.panel_tascmonitor] = 0;
                 } else {
                     panel[Config.panel_tascenabled] = panel[Config.autopilotpanel_tascenabled] > 0 ? 4 : 0;
@@ -111,11 +118,13 @@ namespace TM17000_TIS {
                 }
                 panel[Config.panel_braketobseb] = panel[Config.autopilotpanel_brake];
                 panel[Config.panel_powertobseb] = panel[Config.autopilotpanel_power];
-                panel[Config.panel_powertokyu] = panel[Config.panel_braketokyu] = 0;
+                panel[Config.panel_atopowertobseb] = panel[Config.autopilotpanel_atopower];
+                panel[Config.panel_tokyutascbrake] = panel[Config.panel_powertokyu] = panel[Config.panel_braketokyu] = panel[Config.panel_atopowertokyu] = 0;
             } else {
                 panel[Config.panel_atoenabled] = panel[Config.panel_tascenabled] = panel[Config.panel_tascmonitor] = 0;
-                panel[Config.panel_braketobseb] = panel[Config.panel_braketokyu] = 0;
+                panel[Config.panel_tokyutascbrake] = panel[Config.panel_braketobseb] = panel[Config.panel_braketokyu] = 0;
                 panel[Config.panel_powertobseb] = panel[Config.panel_powertokyu] = 0;
+                panel[Config.panel_atopowertobseb] = panel[Config.panel_atopowertokyu] = 0;
             }
 
             return handles;
