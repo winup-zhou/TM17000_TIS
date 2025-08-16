@@ -1,31 +1,34 @@
-﻿using System;
+﻿using BveEx.Extensions.Native;
+using BveEx.PluginHost;
+using BveEx.PluginHost.Plugins;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
 namespace TM17000_TIS {
-    public static partial class TM17000_TIS {
-        static TM17000_TIS() {
+    [Plugin(PluginType.VehiclePlugin)]
+    public partial class TM17000_TIS : AssemblyPluginBase {
+        private readonly INative Native;
+        private static VehicleSpec vehicleSpec;
+
+        public TM17000_TIS(PluginBuilder services) : base(services) {
             Config.Load();
+
+            Native = Extensions.GetExtension<INative>();
+        }
+
+        public override void Dispose() {
+
         }
 
         private static int HealLastUpdateTime = 0;
-        /// <summary>
-        /// Called every frame
-        /// </summary>
-        /// <param name="vehicleState">Current state of vehicle.</param>
-        /// <param name="panel">Current state of panel.</param>
-        /// <param name="sound">Current state of sound.</param>
-        /// <returns>Driving operations of vehicle.</returns>
-        [DllExport(CallingConvention.StdCall)]
-        public static AtsHandles Elapse(AtsVehicleState state, IntPtr hPanel, IntPtr hSound) {
-            var panel = new AtsIoArray(hPanel);
-            var sound = new AtsIoArray(hSound);
-            var handles = new AtsHandles {
-                Power = pPower, Brake = pBrake,
-                Reverser = pReverser, ConstantSpeed = AtsCscInstruction.Continue
-            };
+
+        public override void Tick(TimeSpan elapsed) {
+            var state = Native.VehicleState;
+            var panel = Native.AtsPanelArray;
+            var sound = Native.AtsSoundArray;
 
             var KeyPos = panel[92];
             var Shubetsu = panel[152];
@@ -63,7 +66,7 @@ namespace TM17000_TIS {
             //    HealLastUpdateTime = state.Time;
             //}
 
-            panel[Config.heal_heal] = (state.Time / 200) % 8;
+            panel[Config.heal_heal] = Convert.ToInt32((state.Time.TotalMilliseconds / 200) % 8);
 
             /*
              1 営団
@@ -126,8 +129,6 @@ namespace TM17000_TIS {
                 panel[Config.panel_powertobseb] = panel[Config.panel_powertokyu] = 0;
                 panel[Config.panel_atopowertobseb] = panel[Config.panel_atopowertokyu] = 0;
             }
-
-            return handles;
         }
     }
 }
