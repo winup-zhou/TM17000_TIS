@@ -12,6 +12,8 @@ namespace TM17000_TIS {
     public partial class TM17000_TIS : AssemblyPluginBase {
         private readonly INative Native;
         private static VehicleSpec vehicleSpec;
+        private static TimeSpan lastRefreshtime = TimeSpan.Zero;
+        private static int lastBrakeOutput, lastPowerOutput, lastATOPowerOutput;
 
         public TM17000_TIS(PluginBuilder services) : base(services) {
             Config.Load();
@@ -85,6 +87,16 @@ namespace TM17000_TIS {
                 }
                 panel[Config.panel_braketobseb] = panel[Config.panel_braketokyu] = 0;
                 panel[Config.panel_powertobseb] = panel[Config.panel_powertokyu] = 0;
+                if (state.Time.TotalMilliseconds - lastRefreshtime.TotalMilliseconds > Config.panel_refreshinterval) {
+                    lastRefreshtime = state.Time;
+                    lastBrakeOutput = panel[Config.autopilotpanel_brake];
+                    lastPowerOutput = panel[Config.autopilotpanel_power];
+                    lastATOPowerOutput = panel[Config.autopilotpanel_atopower]; 
+                } else {
+                    panel[Config.autopilotpanel_brake] = lastBrakeOutput;
+                    panel[Config.autopilotpanel_power] = lastPowerOutput;
+                    panel[Config.autopilotpanel_atopower] = lastATOPowerOutput;
+                }
                 panel[Config.panel_tokyutascbrake] = panel[Config.panel_atopowertobseb] = panel[Config.panel_atopowertokyu] = 0;
             } else if (KeyPos == 2) {
                 panel[Config.panel_atoenabled] = panel[Config.autopilotpanel_atoenabled] > 0 ? 2 : 0;
@@ -94,9 +106,16 @@ namespace TM17000_TIS {
                     panel[Config.panel_tascenabled] = panel[Config.autopilotpanel_tascenabled] > 0 ? 2 : 0;
                     panel[Config.panel_tascmonitor] = panel[Config.autopilotpanel_tascmonitor] > 0 ? 2 : 0;
                 }
-                panel[Config.panel_braketobseb] = panel[Config.autopilotpanel_brake];
-                panel[Config.panel_powertobseb] = panel[Config.autopilotpanel_power];
-                panel[Config.panel_atopowertobseb] = panel[Config.autopilotpanel_atopower];
+                if (state.Time.TotalMilliseconds - lastRefreshtime.TotalMilliseconds > Config.panel_refreshinterval) {
+                    lastRefreshtime = state.Time;
+                    lastBrakeOutput = panel[Config.autopilotpanel_brake];
+                    lastPowerOutput = panel[Config.autopilotpanel_power];
+                    lastATOPowerOutput = panel[Config.autopilotpanel_atopower];
+                } else {
+                    panel[Config.panel_braketobseb] = lastBrakeOutput;
+                    panel[Config.panel_powertobseb] = lastPowerOutput;
+                    panel[Config.panel_atopowertobseb] = lastATOPowerOutput;
+                }
                 panel[Config.panel_tokyutascbrake] = panel[Config.panel_powertokyu] = panel[Config.panel_braketokyu] = panel[Config.panel_atopowertokyu] = 0;
             } else if (KeyPos == 3) {
                 panel[Config.panel_atoenabled] = panel[Config.autopilotpanel_atoenabled] > 0 ? 3 : 0;
@@ -106,9 +125,16 @@ namespace TM17000_TIS {
                     panel[Config.panel_tascenabled] = panel[Config.autopilotpanel_tascenabled] > 0 ? 3 : 0;
                     panel[Config.panel_tascmonitor] = panel[Config.autopilotpanel_tascmonitor] > 0 ? 3 : 0;
                 }
-                panel[Config.panel_braketokyu] = panel[Config.autopilotpanel_brake];
-                panel[Config.panel_powertokyu] = panel[Config.autopilotpanel_power];
-                panel[Config.panel_atopowertokyu] = panel[Config.autopilotpanel_atopower];
+                if (state.Time.TotalMilliseconds - lastRefreshtime.TotalMilliseconds > Config.panel_refreshinterval) {
+                    lastRefreshtime = state.Time;
+                    lastBrakeOutput = panel[Config.autopilotpanel_brake];
+                    lastPowerOutput = panel[Config.autopilotpanel_power];
+                    lastATOPowerOutput = panel[Config.autopilotpanel_atopower];
+                } else {
+                    panel[Config.panel_braketokyu] = lastBrakeOutput;
+                    panel[Config.panel_powertokyu] = lastPowerOutput;
+                    panel[Config.panel_atopowertokyu] = lastATOPowerOutput;
+                }
                 panel[Config.panel_tokyutascbrake] = panel[Config.autopilotpanel_tascmonitor] > 0 ? panel[Config.autopilotpanel_tascbrake] : 0;
                 panel[Config.panel_powertobseb] = panel[Config.panel_braketobseb] = panel[Config.panel_atopowertobseb] = 0;
             } else if (KeyPos == 4) {
@@ -119,11 +145,28 @@ namespace TM17000_TIS {
                     panel[Config.panel_tascenabled] = panel[Config.autopilotpanel_tascenabled] > 0 ? 4 : 0;
                     panel[Config.panel_tascmonitor] = panel[Config.autopilotpanel_tascmonitor] > 0 ? 4 : 0;
                 }
-                panel[Config.panel_braketobseb] = panel[Config.autopilotpanel_brake];
-                panel[Config.panel_powertobseb] = panel[Config.autopilotpanel_power];
-                panel[Config.panel_atopowertobseb] = panel[Config.autopilotpanel_atopower];
+                if (state.Time.TotalMilliseconds - lastRefreshtime.TotalMilliseconds > Config.panel_refreshinterval) {
+                    lastRefreshtime = state.Time;
+                    lastBrakeOutput = panel[Config.autopilotpanel_brake];
+                    lastPowerOutput = panel[Config.autopilotpanel_power];
+                    lastATOPowerOutput = panel[Config.autopilotpanel_atopower];
+                } else {
+                    panel[Config.panel_braketobseb] = lastBrakeOutput;
+                    panel[Config.panel_powertobseb] = lastPowerOutput;
+                    panel[Config.panel_atopowertobseb] = lastATOPowerOutput;
+                }
                 panel[Config.panel_tokyutascbrake] = panel[Config.panel_powertokyu] = panel[Config.panel_braketokyu] = panel[Config.panel_atopowertokyu] = 0;
             } else {
+                if (state.Time.TotalMilliseconds - lastRefreshtime.TotalMilliseconds > Config.panel_refreshinterval) {
+                    lastRefreshtime = state.Time;
+                    lastBrakeOutput = panel[Config.autopilotpanel_brake];
+                    lastPowerOutput = panel[Config.autopilotpanel_power];
+                    lastATOPowerOutput = panel[Config.autopilotpanel_atopower];
+                } else {
+                    panel[Config.autopilotpanel_brake] = lastBrakeOutput;
+                    panel[Config.autopilotpanel_power] = lastPowerOutput;
+                    panel[Config.autopilotpanel_atopower] = lastATOPowerOutput;
+                }
                 panel[Config.panel_atoenabled] = panel[Config.panel_tascenabled] = panel[Config.panel_tascmonitor] = 0;
                 panel[Config.panel_tokyutascbrake] = panel[Config.panel_braketobseb] = panel[Config.panel_braketokyu] = 0;
                 panel[Config.panel_powertobseb] = panel[Config.panel_powertokyu] = 0;

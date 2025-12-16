@@ -62,7 +62,7 @@ namespace TM17000_TIS {
         public static int panel_atopowertokyu = 255;
         public static int panel_tokyutascbrake = 255;
         public static bool panel_tascdisplayunderato = false;
-
+        public static int panel_refreshinterval = 0;
         public static void Load() {
             path = new FileInfo(Path.Combine(PluginDir, "TISConfig.ini")).FullName;
             if (File.Exists(path)) {
@@ -108,7 +108,7 @@ namespace TM17000_TIS {
                     ReadConfig("panel", "atopowertobseb", ref panel_atopowertobseb);
                     ReadConfig("panel", "tokyutascbrake", ref panel_tokyutascbrake);
                     ReadConfig("panel", "tascdisplayunderato", ref panel_tascdisplayunderato);
-
+                    ReadConfig("panel", "refreshinterval", ref panel_refreshinterval);
                 } catch (Exception ex) {
                     throw ex;
                 }
