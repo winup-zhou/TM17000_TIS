@@ -31,6 +31,11 @@ namespace TM17000_TIS {
         //[heal]
         public static int heal_heal = 255;
 
+        //[handle]
+        public static int handle_reverser = 255;
+        public static int handle_power = 255;
+        public static int handle_brake = 255;
+
         //[date]
         public static int date_year_1000 = 255;
         public static int date_year_100 = 255;
@@ -73,6 +78,11 @@ namespace TM17000_TIS {
                     ReadConfig("odometer", "km1", ref odometer_Km1);
                     ReadConfig("odometer", "km0.1", ref odometer_Km01);
                     ReadConfig("odometer", "Km0.01", ref odometer_Km001);
+
+                    //[handle]
+                    ReadConfig("handle", "reverser", ref handle_reverser);
+                    ReadConfig("handle", "power", ref handle_power);
+                    ReadConfig("handle", "brake", ref handle_brake);
 
                     //[heal]
                     ReadConfig("heal", "heal", ref heal_heal);

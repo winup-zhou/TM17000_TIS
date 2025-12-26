@@ -19,9 +19,17 @@ namespace TM17000_TIS {
             Config.Load();
 
             Native = Extensions.GetExtension<INative>();
+
+            Native.Started += OnStarted;
+            lastRefreshtime = TimeSpan.Zero;
+        }
+
+        private void OnStarted(object sender, StartedEventArgs e) {
+            lastRefreshtime = TimeSpan.Zero;
         }
 
         public override void Dispose() {
+            Native.Started -= OnStarted;
             lastRefreshtime = TimeSpan.Zero;
         }
 
@@ -31,6 +39,7 @@ namespace TM17000_TIS {
             var state = Native.VehicleState;
             var panel = Native.AtsPanelArray;
             var sound = Native.AtsSoundArray;
+            var handles = BveHacker.Scenario.Vehicle.Instruments.AtsPlugin.Handles;
 
             var KeyPos = panel[92];
             var Shubetsu = panel[152];
@@ -54,13 +63,13 @@ namespace TM17000_TIS {
             var nowWeek = (int)DateTime.Now.DayOfWeek;
             panel[Config.date_week] = nowWeek;
 
-            var nowLocation = (int)state.Location;
-            //100km = 100000m
-            panel[Config.odometer_Km100] = D(nowLocation, 5);
-            panel[Config.odometer_Km10] = D(nowLocation, 4);
-            panel[Config.odometer_Km1] = D(nowLocation, 3);
-            panel[Config.odometer_Km01] = D(nowLocation, 2);
-            panel[Config.odometer_Km001] = D(nowLocation, 1);
+            //var nowLocation = (int)state.Location;
+            ////100km = 100000m
+            //panel[Config.odometer_Km100] = D(nowLocation, 5);
+            //panel[Config.odometer_Km10] = D(nowLocation, 4);
+            //panel[Config.odometer_Km1] = D(nowLocation, 3);
+            //panel[Config.odometer_Km01] = D(nowLocation, 2);
+            //panel[Config.odometer_Km001] = D(nowLocation, 1);
 
             //if (state.Time - HealLastUpdateTime > 200) {
             //    panel[Config.heal_heal] = (nowHeal + 1) % 10;
@@ -80,6 +89,10 @@ namespace TM17000_TIS {
             panel[Config.autopilotpanel_brake] = lastBrakeOutput;
             panel[Config.autopilotpanel_power] = lastPowerOutput;
             panel[Config.autopilotpanel_atopower] = lastATOPowerOutput;
+
+            panel[Config.handle_reverser] = (int)handles.ReverserPosition + 1;
+            panel[Config.handle_power] = handles.PowerNotch;
+            panel[Config.handle_brake] = handles.BrakeNotch;
 
             /*
              1 営団
